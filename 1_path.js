@@ -10,3 +10,4 @@ console.log(path.parse(__filename)) // obj
 console.log(path.join(__dirname, "test" , 'second.html')) // /Users/sss-1/Desktop/project/nodejs/udemy/test/second.html
 console.log(path.resolve(__dirname , 'test' , 'second.html'))
 
+
