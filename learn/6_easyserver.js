@@ -2,6 +2,9 @@ const http = require('http')
 
 const server = http.createServer((req,res) =>{
     if (req.method == "GET"){
+        res.writeHead(200,{
+            "Content-type":"text/html"
+        })
         res.end(`
         <h1>Form</h1>
         <form method="post" action="/">
@@ -9,9 +12,24 @@ const server = http.createServer((req,res) =>{
         <button type="submit"></button>
         </form>
         `)
+    } else if (req.method == "POST"){
+        const body = []
+        res.writeHead(200,{
+            "Content-type":"text/html; charset=utf-8"
+        })
+        req.on('data', data => {
+            body.push(Buffer.from(data))
+        })
+        req.on('end', () => {
+            const mes = body.toString().split("=")[1]
+            res.end(`
+            <h1>Ваше сообщение: ${mes}</h1>
+        `)
+        })
+        
     }
 })
 
-server.listen(3000,() =>{
+server.listen(3001,() =>{
     console.log('server is running...');
 })
